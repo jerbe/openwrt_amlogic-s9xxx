@@ -10,7 +10,7 @@
 #
 # Description: Install openwrt to eMMC for Allwinner boxes
 # Copyright (C) 2022- https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2022- https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2022- https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Command: openwrt-install-allwinner
 #

@@ -9,7 +9,7 @@
 # https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Description: Restoring the system initialization state
-# Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2021- https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Command: firstboot
 #

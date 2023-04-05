@@ -9,7 +9,7 @@
 # https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Description: Create swap for openwrt system
-# Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2021- https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Command: openwrt-swap 1
 # The input parameter unit is GiB, the default is 1

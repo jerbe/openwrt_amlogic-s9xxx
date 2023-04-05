@@ -1,7 +1,7 @@
 #=====================================================================================
 # Description: Packaging OpenWrt for qemu, allwinner, rockchip and amlogic
 # Copyright (C) 2021 https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021 https://github.com/ophub/flippy-openwrt-actions
+# Copyright (C) 2021 https://github.com/jerbe/openwrt_packit-flippy
 #=====================================================================================
 
 name: Packaging QEMU and others
@@ -112,7 +112,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Packaging OpenWrt
-        uses: ophub/flippy-openwrt-actions@main
+        uses: jerbe/openwrt_packit-flippy@main
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         env:
           OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz

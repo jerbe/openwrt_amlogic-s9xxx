@@ -13,8 +13,8 @@
 # Copyright (C) 2020~ https://github.com/coolsnowwolf/lede
 # Copyright (C) 2020~ https://github.com/immortalwrt/immortalwrt
 # Copyright (C) 2020~ https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021~ https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/CONTRIBUTORS.md
-# Copyright (C) 2020~ https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2021~ https://github.com/jerbe/armbian_amlogic-s9xxx/blob/main/CONTRIBUTORS.md
+# Copyright (C) 2020~ https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Command: sudo ./make
 # Command optional parameters please refer to the source code repository

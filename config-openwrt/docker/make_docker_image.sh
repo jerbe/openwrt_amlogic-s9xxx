@@ -10,7 +10,7 @@
 #
 # Description: Creating a Docker Image
 # Copyright (C) 2021~ https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021~ https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2021~ https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Command: ./config-openwrt/docker/make_docker_image.sh
 #
