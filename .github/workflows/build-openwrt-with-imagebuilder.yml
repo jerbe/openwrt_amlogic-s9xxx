@@ -151,7 +151,6 @@ jobs:
       - name: Build OpenWrt firmware
         if: ${{ steps.imagebuilder.outputs.status }} == 'success' && !cancelled()
         uses: jerbe/openwrt_amlogic-s9xxx@main
-        secrets: inherit
         with:
           openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
           openwrt_board: ${{ inputs.openwrt_board }}

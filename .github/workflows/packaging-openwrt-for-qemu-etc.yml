@@ -113,7 +113,6 @@ jobs:
 
       - name: Packaging OpenWrt
         uses: jerbe/openwrt_packit-flippy@main
-        secrets: inherit
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         env:
           OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
