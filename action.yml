@@ -1,5 +1,5 @@
 name: "Make OpenWrt"
-author: "https://github.com/ophub/amlogic-s9xxx-openwrt"
+author: "https://github.com/jerbe/openwrt_amlogic-s9xxx"
 description: "Support Amlogic, Rockchip and Allwinner boxes."
 inputs:
   mode:
@@ -25,7 +25,7 @@ inputs:
   kernel_repo:
     description: "Select kernel repository."
     required: false
-    default: "https://github.com/ophub/kernel/tree/main/pub"
+    default: "https://github.com/jerbe/armbian_kernel/tree/main/pub"
   openwrt_size:
     description: "Set the rootfs size(Unit: MiB)."
     required: false

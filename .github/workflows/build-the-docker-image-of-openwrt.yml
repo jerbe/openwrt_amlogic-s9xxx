@@ -1,5 +1,5 @@
 #=====================================================================================
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/jerbe/openwrt_amlogic-s9xxx
 # Description: Build the Docker image of OpenWrt
 # Instructions: https://github.com/docker/build-push-action
 # Build and Push to: https://hub.docker.com/

@@ -1,10 +1,10 @@
 
 config amlogic 'config'
 	option enable '1'
-	option amlogic_firmware_repo 'https://github.com/ophub/amlogic-s9xxx-openwrt'
+	option amlogic_firmware_repo 'https://github.com/jerbe/openwrt_amlogic-s9xxx'
 	option amlogic_firmware_tag 'lede'
 	option amlogic_firmware_suffix '.img.gz'
-	option amlogic_kernel_path 'https://github.com/ophub/kernel'
+	option amlogic_kernel_path 'https://github.com/jerbe/armbian_kernel'
 	option amlogic_kernel_branch ''
 	option amlogic_firmware_config '1'
 	option amlogic_write_bootloader '0'

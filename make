@@ -6,7 +6,7 @@
 # warranty of any kind, whether express or implied.
 #
 # This file is a part of the make OpenWrt for Amlogic and Rockchip
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Description: Automatically Packaged OpenWrt for Amlogic and Rockchip
 # Copyright (C) 2020~ https://github.com/openwrt/openwrt
@@ -67,12 +67,12 @@ host_release="$(cat /etc/os-release | grep '^VERSION_CODENAME=.*' | cut -d'=' -f
 op_release="etc/flippy-openwrt-release"
 
 # Dependency files download repository
-depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/build-armbian"
+depends_repo="https://github.com/jerbe/armbian_amlogic-s9xxx/tree/main/build-armbian"
 # Convert depends repository address to svn format
 depends_repo="${depends_repo//tree\/main/trunk}"
 
 # Firmware files download repository
-firmware_repo="https://github.com/ophub/firmware/tree/main/firmware"
+firmware_repo="https://github.com/jerbe/armbian_firmware/tree/main/firmware"
 # Convert firmware repository address to svn format
 firmware_repo="${firmware_repo//tree\/main/trunk}"
 
@@ -82,7 +82,7 @@ script_repo="https://github.com/ophub/luci-app-amlogic/tree/main/luci-app-amlogi
 script_repo="${script_repo//tree\/main/trunk}"
 
 # Set the kernel download repository from github.com
-kernel_repo="ophub/kernel"
+kernel_repo="jerbe/armbian_kernel"
 # Set the list of kernels used by default
 stable_kernel=("6.1.1" "5.15.1")
 rk3588_kernel=("5.10.1")

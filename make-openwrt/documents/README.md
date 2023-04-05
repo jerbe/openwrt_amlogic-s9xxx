@@ -73,7 +73,7 @@ Set the GitHub privacy variable `GitHub_TOKEN`. After the firmware is compiled, 
 
 ## 3. Fork repository and set GH_TOKEN
 
-Now you can `Fork` the `repository`, open the repository [https://github.com/ophub/amlogic-s9xxx-openwrt](https://github.com/ophub/amlogic-s9xxx-openwrt), click the `Fork` button on the `upper right`, Will copy a copy of the repository code to your account, `wait a few seconds`, and prompt the Fork to complete Later, go to your account to access `amlogic-s9xxx-openwrt` in `your repository`. In the upper right corner of `Settings` > `Secrets` > `Actions` > `New repostiory secret` (Name: `GH_TOKEN`, Value: `Fill in the value of GitHub_TOKEN` just now), `save it`. And select `Read and write permissions` under `Actions` > `General` > `Workflow permissions` in the left nav and save. The icons are as follows:
+Now you can `Fork` the `repository`, open the repository [https://github.com/jerbe/openwrt_amlogic-s9xxx](https://github.com/jerbe/openwrt_amlogic-s9xxx), click the `Fork` button on the `upper right`, Will copy a copy of the repository code to your account, `wait a few seconds`, and prompt the Fork to complete Later, go to your account to access `amlogic-s9xxx-openwrt` in `your repository`. In the upper right corner of `Settings` > `Secrets` > `Actions` > `New repostiory secret` (Name: `GH_TOKEN`, Value: `Fill in the value of GitHub_TOKEN` just now), `save it`. And select `Read and write permissions` under `Actions` > `General` > `Workflow permissions` in the left nav and save. The icons are as follows:
 
 <div style="width:100%;margin-top:40px;margin:5px;">
 <img src=https://user-images.githubusercontent.com/68696949/109418568-0eb2f880-7a04-11eb-81c9-194e32382998.jpg width="300" />
@@ -195,7 +195,7 @@ Where the value of `BUILD` is `yes`, it is the system of some boxes packed by de
 
 For users who perform custom compilation in the `fork` source code repository, if their device is not in the default packaging list, they can modify `no` in `BUILD` to `yes`, and set `a unique value` for `BOARD` to directly package their own device. The `unique value` added to `BOARD` can be used independently when packaging system, for example, `./make -b s905x3` will generate the Armbian system corresponding to `s905x3` configuration, You need to add `BOARD` to [openwrt_board](../../.github/workflows/build-openwrt-with-lede.yml#L13) option in the workflow control file when compiling separately in `github Actions`. When building all, `BUILD` is `yes`, all will be packaged.
 
-The firmware compilation process is controlled in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. There are other `yml files` in the `workflows` directory to achieve other different functions. There are many ways to compile firmware, you can set timed compilation, manual compilation, or set some specific events to trigger compilation. Let's start with simple operations.
+The firmware compilation process is controlled in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. There are other `yml files` in the `workflows` directory to achieve other different functions. There are many ways to compile firmware, you can set timed compilation, manual compilation, or set some specific events to trigger compilation. Let's start with simple operations.
 
 ### 5.1 Manual compilation
 
@@ -209,7 +209,7 @@ In the `navigation bar of your repository`, click the `Actions` button, and then
 
 ### 5.2 Compile at the agreed time
 
-In the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml) file, use `cron` to set the timing compilation. The 5 different positions represent min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday). Set the time by modifying the values of different positions. The system uses `UTC standard time` by default, please convert it according to the time zone of your country.
+In the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml) file, use `cron` to set the timing compilation. The 5 different positions represent min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday). Set the time by modifying the values of different positions. The system uses `UTC standard time` by default, please convert it according to the time zone of your country.
 
 ```yaml
 schedule:
@@ -218,7 +218,7 @@ schedule:
 
 ## 6. Save the firmware
 
-The settings saved by the firmware are also controlled in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. We will automatically upload the compiled firmware to the `Actions` and `Releases` officially provided by `GitHub` through scripts, or upload it to a `third party` (such as WeTransfer).
+The settings saved by the firmware are also controlled in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. We will automatically upload the compiled firmware to the `Actions` and `Releases` officially provided by `GitHub` through scripts, or upload it to a `third party` (such as WeTransfer).
 
 Now the longest storage period of `Actions in GitHub is 90 days`, `Releases is permanent`, and third parties such as WeTransfer are 7 days. First of all, we thank these service providers for their free support, but we also ask you to use it sparingly. We advocate the reasonable use of free services.
 
@@ -288,7 +288,7 @@ Enter from the GitHub `Releases` section at the bottom right corner of the `repo
 
 ### 7.3 Download from third parties
 
-In the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml) file, upload to the third party is closed by default. If you need, change `false` to `true`, and upload to the third party when the compilation is completed next time. The third-party URL can be seen `in the log` of the firmware compilation process, and can also be output to the compilation information.
+In the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml) file, upload to the third party is closed by default. If you need, change `false` to `true`, and upload to the third party when the compilation is completed next time. The third-party URL can be seen `in the log` of the firmware compilation process, and can also be output to the compilation information.
 
 ```yaml
 UPLOAD_COWTRANSFER: false
@@ -314,7 +314,7 @@ Choose the corresponding firmware according to your box. Then write the IMG file
 
 ### 8.2 Install using the operation panel
 
-1. For the installation method of the `Rockchip` platform, please refer to [Section 8](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/build-armbian/documents) in the documentation. The installation method is the same as Armbian.
+1. For the installation method of the `Rockchip` platform, please refer to [Section 8](https://github.com/jerbe/armbian_amlogic-s9xxx/blob/main/build-armbian/documents) in the documentation. The installation method is the same as Armbian.
 
 2. `Amlogic` and `Allwinner` platform，Then write the IMG file to the USB hard disk through software such as [Rufus](https://rufus.ie/) or [balenaEtcher](https://www.balena.io/etcher/). Insert the USB hard disk into the box. `Log in to the default IP: 192.168.1.1` → `Login in to openwrt` → `system menu` → `Amlogic Service` → `Install OpenWrt`
 
@@ -336,7 +336,7 @@ After you complete the `OpenWrt personalized configuration` locally, `save and e
 
 The official GitHub gave a detailed explanation. Regarding the use of `GitHub Actions`, you can start to get to know it from here: [Quickstart for GitHub Actions](https://docs.github.com/en/Actions/quickstart)
 
-Let’s make a few brief introductions based on the files being used in the repository: [build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml)
+Let’s make a few brief introductions based on the files being used in the repository: [build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml)
 
 #### 10.2.1 Replacing source code repositories and branches
 
@@ -359,7 +359,7 @@ Near line 139, find `Build OpenWrt firmware`, Code snippet like this:
 ```yaml
 - name: Build OpenWrt firmware
   if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
-  uses: ophub/amlogic-s9xxx-openwrt@main
+  uses: jerbe/openwrt_amlogic-s9xxx@main
   with:
     openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
     openwrt_board: ${{ inputs.openwrt_board }}
@@ -368,7 +368,7 @@ Near line 139, find `Build OpenWrt firmware`, Code snippet like this:
     openwrt_size: ${{ inputs.openwrt_size }}
     gh_token: ${{ secrets.GH_TOKEN }}
 ```
-Refer to the related [parameter description](https://github.com/ophub/amlogic-s9xxx-openwrt#github-actions-input-parameter-description) of the packaging command. The above setting options can be set by writing fixed values, or they can be selected through the `Actions` panel:
+Refer to the related [parameter description](https://github.com/jerbe/openwrt_amlogic-s9xxx#github-actions-input-parameter-description) of the packaging command. The above setting options can be set by writing fixed values, or they can be selected through the `Actions` panel:
 <div style="width:100%;margin-top:40px;margin:5px;">
 <img src=https://user-images.githubusercontent.com/68696949/181870674-1816aa21-ece4-4149-83ce-6ec7f95ece68.png width="700" />
 </div>
@@ -393,7 +393,7 @@ When you look at the `feeds.conf.default` file in the `source code repository`, 
 
 ### 10.5 Custom software default configuration information
 
-When we use `OpenWrt`, we have already configured many software. Most of the `configuration information` of these software is stored in your OpenWrt's `/etc/config/` and other related directories. Copy the storage files of these configuration information to In the `files` folder under the root directory of the `repository in GitHub`, please `keep the directory structure and files the same`. During OpenWrt compilation, the storage files of these configuration information will be compiled into your firmware. The specific method is in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. Let's take a look at this code together:
+When we use `OpenWrt`, we have already configured many software. Most of the `configuration information` of these software is stored in your OpenWrt's `/etc/config/` and other related directories. Copy the storage files of these configuration information to In the `files` folder under the root directory of the `repository in GitHub`, please `keep the directory structure and files the same`. During OpenWrt compilation, the storage files of these configuration information will be compiled into your firmware. The specific method is in the [.github/workflows/build-openwrt-with-lede.yml](https://github.com/jerbe/openwrt_amlogic-s9xxx/blob/main/.github/workflows/build-openwrt-with-lede.yml) file. Let's take a look at this code together:
 
 ```yaml
 - name: Load custom configuration
@@ -467,9 +467,9 @@ It is recommended that you make a backup of the original Android TV system that 
 
 - Under normal circumstances, re-insert the USB hard disk and install it again.
 
-- If you cannot start the OpenWrt system from the USB hard disk again, connect the Amlogic s9xxx TV Boxes to the computer monitor. If the screen is completely black and there is nothing, you need to restore the Amlogic s9xxx TV Boxes to factory settings first, and then reinstall it. First download the [amlogic_usb_burning_tool](https://github.com/ophub/kernel/releases/tag/tools) system recovery tool and install it. Prepare a [USB dual male data cable](https://user-images.githubusercontent.com/68696949/159267576-74ad69a5-b6fc-489d-b1a6-0f8f8ff28634.png), Prepare a [paper clip](https://user-images.githubusercontent.com/68696949/159267790-38cf4681-6827-4cb6-86b2-19c7f1943342.png).
+- If you cannot start the OpenWrt system from the USB hard disk again, connect the Amlogic s9xxx TV Boxes to the computer monitor. If the screen is completely black and there is nothing, you need to restore the Amlogic s9xxx TV Boxes to factory settings first, and then reinstall it. First download the [amlogic_usb_burning_tool](https://github.com/jerbe/armbian_kernel/releases/tag/tools) system recovery tool and install it. Prepare a [USB dual male data cable](https://user-images.githubusercontent.com/68696949/159267576-74ad69a5-b6fc-489d-b1a6-0f8f8ff28634.png), Prepare a [paper clip](https://user-images.githubusercontent.com/68696949/159267790-38cf4681-6827-4cb6-86b2-19c7f1943342.png).
 
-- Take x96max+ as an example. Find the two [short-circuit points](https://user-images.githubusercontent.com/68696949/110590933-67785300-81b3-11eb-9860-986ef35dca7d.jpg) on the motherboard, Download the [Android TV firmware](https://github.com/ophub/kernel/releases/tag/tools). The Android TV system firmware of other common devices and the corresponding short circuit diagrams can also be [downloaded and viewed here](https://github.com/ophub/kernel/releases/tag/tools).
+- Take x96max+ as an example. Find the two [short-circuit points](https://user-images.githubusercontent.com/68696949/110590933-67785300-81b3-11eb-9860-986ef35dca7d.jpg) on the motherboard, Download the [Android TV firmware](https://github.com/jerbe/armbian_kernel/releases/tag/tools). The Android TV system firmware of other common devices and the corresponding short circuit diagrams can also be [downloaded and viewed here](https://github.com/jerbe/armbian_kernel/releases/tag/tools).
 
 ```
 Operation method:
@@ -521,7 +521,7 @@ You need to install a resistor on the TTL: [X96 Max Plus's V4.0 Motherboard](htt
 - Write the firmware to USB/TF/SD, insert it into the box after writing.
 - Open the developer mode: Settings → About this machine → Version number (for example: X96max plus...), click on the version number for 5 times in quick succession, See the prompt of `Enable Developer Mode` displayed by the system.
 - Turn on USB debugging: System → Advanced options → Developer options again (after entering, confirm that the status is on, and the `USB debugging` status in the list is also on). Enable `ADB` debugging.
-- Install ADB tools: Download [adb](https://github.com/ophub/kernel/releases/tag/tools) and unzip it, copy the three files `adb.exe`, `AdbWinApi.dll`, and `AdbWinUsbApi.dll` to the two files `system32` and `syswow64` under the directory of `c://windows/` Folder, then open the `cmd` command panel, use `adb --version` command, if it is displayed, it is ready to use.
+- Install ADB tools: Download [adb](https://github.com/jerbe/armbian_kernel/releases/tag/tools) and unzip it, copy the three files `adb.exe`, `AdbWinApi.dll`, and `AdbWinUsbApi.dll` to the two files `system32` and `syswow64` under the directory of `c://windows/` Folder, then open the `cmd` command panel, use `adb --version` command, if it is displayed, it is ready to use.
 - Enter the `cmd` command mode. Enter the `adb connect 192.168.1.137` command (the ip is modified according to your box, and you can check it in the router device connected to the box), If the link is successful, it will display `connected to 192.168.1.137:5555`
 - Enter the `adb shell reboot update` command, the box will restart and boot from the USB/TF/SD you inserted, access the firmware IP address from a browser, or SSH to enter the firmware.
 - Log in to the system: Connect the computer and the s9xxx box with a network interface → turn off the wireless wifi on the computer → enable the wired connection → manually set the computer ip to the same network segment ip as openwrt, ipaddr such as `192.168.1.2`. The netmask is `255.255.255.0`, and others are not filled in. You can log in to the openwrt system from the browser, Enter OpwnWrt's IP Address: `192.168.1.1`, Account: `root`, Password: `password`, and then log in OpenWrt system.

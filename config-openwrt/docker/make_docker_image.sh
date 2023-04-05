@@ -6,7 +6,7 @@
 # warranty of any kind, whether express or implied.
 #
 # This file is a part of the make OpenWrt
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/jerbe/openwrt_amlogic-s9xxx
 #
 # Description: Creating a Docker Image
 # Copyright (C) 2021~ https://github.com/unifreq/openwrt_packit
