@@ -126,6 +126,8 @@ jobs:
 
           echo "OPENWRT_RELEASE=custom" >> ${GITHUB_ENV}
           echo "status=success" >> ${GITHUB_OUTPUT}
+          echo "kernel_version=${kernel_version}" >> ${GITHUB_OUTPUT}
+          echo "kernel_auto=${kernel_auto}" >> ${GITHUB_OUTPUT}
 
       - name: Download OpenWrt Armvirt firmware
         id: down
