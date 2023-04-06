@@ -3,7 +3,7 @@
 # Description: Use Releases file to packaging
 #=====================================================================================
 
-name: Use Releases file to Packaging
+name: Use Custom file to Packaging
 
 on:
   repository_dispatch:
