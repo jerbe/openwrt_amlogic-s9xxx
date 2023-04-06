@@ -5,7 +5,7 @@ inputs:
   mode:
     description: "Select script."
     required: false
-    default: "ophub"
+    default: "jerbe"
   openwrt_path:
     description: "Select armvirt64 file path."
     required: false
@@ -41,7 +41,7 @@ runs:
     - shell: bash
       run: |
         cd ${GITHUB_ACTION_PATH}
-        echo -e "ophub package actions path: ${PWD}"
+        echo -e "jerbe package actions path: ${PWD}"
 
         openwrt_filename="${{ inputs.openwrt_path }}"
         openwrt_savepath="openwrt-armvirt"

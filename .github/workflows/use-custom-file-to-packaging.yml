@@ -1,0 +1,176 @@
+#=====================================================================================
+# https://github.com/jerbe/openwrt_amlogic-s9xxx
+# Description: Use Releases file to packaging
+#=====================================================================================
+
+name: Use Releases file to Packaging
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      armvirt_tarfile_path:
+        description: "Armvirt tarfile path"
+        required: true
+        default: ""
+      openwrt_board:
+        description: "Select device board"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - s922x_s905x3_s905d_s912_s905l3a
+          - r66s_r68s_h66k_h68k_e25_nanopi-r5s
+          - eaidk-610_king3399_tn3399_kylin3399
+          - vplus_tqc-a01_tanix-tx6
+          - a311d
+          - s922x
+          - s922x-reva
+          - s922x-ct2000
+          - s905x3
+          - s905x3-b
+          - s905x2
+          - s912
+          - s912-m8s-pro
+          - s905d
+          - s905d-ki-pro
+          - s905x
+          - s905w
+          - s905
+          - s905l2
+          - s905l3
+          - s905l3a
+          - s905l3b
+          - s905lb-r3300l
+          - rock5b
+          - h88k
+          - r66s
+          - r68s
+          - h66k
+          - h68k
+          - e25
+          - nanopi-r5s
+          - eaidk-610
+          - king3399
+          - tn3399
+          - kylin3399
+          - beikeyun
+          - l1pro
+          - vplus
+          - tqc-a01
+          - tanix-tx6
+      kernel_version:
+        description: "Select kernel version"
+        required: false
+        default: "5.15.1_6.1.1"
+        type: choice
+        options:
+          - 5.4.1_5.10.1_5.15.1
+          - 5.4.1_5.10.1
+          - 5.10.1_5.15.1
+          - 5.15.1_6.1.1
+          - 5.4.1
+          - 5.10.1
+          - 5.15.1
+          - 6.1.1
+      auto_kernel:
+        description: "Auto use the latest kernel"
+        required: false
+        default: true
+        type: boolean
+      kernel_version_input:
+        description: "Input custom kernel version"
+        required: false
+        default: ""  
+      kernel_repo:
+        description: "Set the kernel repository"
+        required: false
+        default: "https://github.com/jerbe/armbian_kernel/tree/main/pub"
+      openwrt_size:
+        description: "Set the rootfs size(Unit: MiB)"
+        required: false
+        default: "1024"
+
+env:
+  TZ: America/New_York
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Initialization environment
+        id: init
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          docker rmi `docker images -q`
+          [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
+          sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
+          sudo -E apt-get -y update
+          sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
+          sudo -E apt-get -y install $(curl -fsSL https://is.gd/depend_ubuntu2204_openwrt)
+          sudo -E systemctl daemon-reload
+          #sudo -E apt-get -y full-upgrade
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get clean
+          sudo timedatectl set-timezone "${TZ}"
+
+
+          kernel_version=${{ inputs.kernel_version }}
+          kernel_version_input=${{ inputs.kernel_version_input }}
+          kernel_auto=${{ inputs.kernel_auto }}
+          [[ -n "${kernel_version_input}" ]] && kernel_version=${kernel_version_input} && kernel_auto=false && echo "use custom kernel versin"
+
+          echo "OPENWRT_RELEASE=custom" >> ${GITHUB_ENV}
+          echo "status=success" >> ${GITHUB_OUTPUT}
+
+      - name: Download OpenWrt Armvirt firmware
+        id: down
+        if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
+        run: |
+          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
+          [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
+          down_file="${{ inputs.armvirt_tarfile_path }}"
+
+          [[ -z "${openwrt_url}" ]] && echo -e "Armvirt tarfile path is not set!" && exit 1
+
+          wget -q -P "${armvirt_tarfile_path}" "${down_file}"
+          [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
+
+          echo "status=success" >> ${GITHUB_OUTPUT}
+
+      - name: Build OpenWrt firmware [ ${{ env.OPENWRT_RELEASE }} ]
+        if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
+        uses: jerbe/openwrt_amlogic-s9xxx@main
+        with:
+          openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
+          openwrt_board: ${{ inputs.openwrt_board }}
+          openwrt_kernel: ${{ steps.init.outputs.kernel_version }}
+          auto_kernel: ${{ steps.init.outputs.kernel_auto }}
+          kernel_repo: ${{ inputs.kernel_repo }}
+          openwrt_size: ${{ inputs.openwrt_size }}
+          gh_token: ${{ secrets.GH_TOKEN }}
+
+      - name: Upload OpenWrt Firmware to Release
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+        with:
+          tag: OpenWrt_${{ env.OPENWRT_RELEASE }}_${{ env.PACKAGED_OUTPUTDATE }}
+          artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+          allowUpdates: true
+          token: ${{ secrets.GH_TOKEN }}
+          body: |
+            This is OpenWrt firmware for Amlogic and Rockchip
+            * Firmware information
+            Default IP: 192.168.1.1
+            Default username: root
+            Default password: password
+            Default WIFI name: OpenWrt
+            Default WIFI password: none
+            Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
