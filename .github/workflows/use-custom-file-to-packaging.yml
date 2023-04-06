@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       armvirt_tarfile_url:
-        description: "Armvirt tarfile path"
+        description: "Armvirt tarfile url path"
         required: true
         default: ""
       openwrt_board:
